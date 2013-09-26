@@ -28,7 +28,7 @@ module DsAuth::InstanceMethods
       session.delete(:user_id)
       flash[:error] = message
 
-      redirect_to login_path
+      redirect_to ds_auth.login_path
       return
     end
 end
