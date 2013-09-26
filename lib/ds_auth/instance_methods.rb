@@ -26,9 +26,13 @@ module DsAuth::InstanceMethods
     def goto_login(message)
       session.delete(:user_roles)
       session.delete(:user_id)
-      flash[:error] = message
+      if request.method == 'GET'
+        flash[:error] = message
+        redirect_to ds_auth.login_path
+      else
+        render json: { error: "You don't have access to do that." }, status: 401
+      end
 
-      redirect_to ds_auth.login_path
       return
     end
 end
