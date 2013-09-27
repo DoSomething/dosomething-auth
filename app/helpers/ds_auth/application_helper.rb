@@ -7,5 +7,9 @@ module DsAuth
     def admin?
       authenticated? && session[:user_roles].values.include?('administrator')
     end
+
+    def has_role? (role)
+      session[:user_roles] && session[:user_roles].values.include?(role)
+    end
   end
 end
