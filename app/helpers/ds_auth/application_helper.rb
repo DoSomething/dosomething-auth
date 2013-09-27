@@ -8,8 +8,12 @@ module DsAuth
       authenticated? && session[:user_roles].values.include?('administrator')
     end
 
-    def has_role? (role)
-      session[:user_roles] && session[:user_roles].values.include?(role)
+    def has_role? (roles)
+      if roles.is_a? Array
+        authenticated? && ((session[:user_roles].values & roles).length == roles.length)
+      else
+        authenticated? && session[:user_roles].values.include?(roles)
+      end
     end
   end
 end
